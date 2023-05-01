@@ -1,0 +1,32 @@
+version: '2'
+services:
+  mysqldb:
+    image: mysql:8.0.20
+    container_name: library-mysql
+    restart: always
+    command:
+      [
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_general_ci',
+        '--sort_buffer_size=1073741824'
+      ]
+    environment:
+      - MYSQL_DATABASE=${mysql_database}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "8989:3306"
+    volumes:
+      - "./data/db/mysql:/var/lib/mysql"
+      - "./etc/mysql:/etc/mysql/conf.d"
+  myadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=${mysql_host}
+    depends_on:
+      - mysqldb
