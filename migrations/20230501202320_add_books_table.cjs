@@ -8,6 +8,7 @@ exports.up = function (knex) {
     t.datetime("updatedAt").nullable()
     t.datetime("inactiveAt").nullable()
     t.string("fbUserId", 128)
+    t.string("title")
     t.integer("current_page")
     t.integer("total_pages")
     t.string("author")
