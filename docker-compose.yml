@@ -7,5 +7,6 @@ services:
     volumes:
       - ./lib:/app/lib
       - ./migrations:/app/migrations
+      - ./tests:/app/tests
     ports:
       - "4000:4000"

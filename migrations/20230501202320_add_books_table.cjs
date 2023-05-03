@@ -12,8 +12,9 @@ exports.up = function (knex) {
     t.integer("current_page")
     t.integer("total_pages")
     t.string("author")
+    t.json("cover_url")
     t.string("review")
-    t.json("finished")
+    t.boolean("finished")
   })
 }
 
