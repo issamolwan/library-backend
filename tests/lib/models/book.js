@@ -47,6 +47,24 @@ describe("Book", () => {
     return mBook.post({ ...newBook }).then((result) => {
       _insert1 = result
       assert.isDefined(_insert1.id)
+      assert.deepEqual(_insert1, {
+        cover_url: [
+          {
+            medium: _insert1.cover_url[0].medium,
+          },
+          {
+            large: _insert1.cover_url[1].large,
+          },
+        ],
+        fbUserId: "02u2jd9j1291j",
+        title: "Thinking Fast And Slow",
+        total_pages: 400,
+        current_page: 200,
+        finished: false,
+        id: _insert1.id,
+      })
     })
   })
+
+  
 })
