@@ -66,5 +66,63 @@ describe("Book", () => {
     })
   })
 
-  
+  it("should get a book record from database", () => {
+    return mBook.get(_insert1.id).then((result) => {
+      assert.deepEqual(result, _insert1)
+    })
+  })
+
+  it("should update a book record in database", () => {
+    return mBook.patch(_insert1.id, { current_page: 300 }).then((result) => {
+      assert.deepEqual(result, {
+        ..._insert1,
+        current_page: 300,
+      })
+    })
+  })
+
+  it("should not get a book record from database", () => {
+    return mBook.get(_insert1.id).then((result) => {
+      assert.deepEqual(result, undefined)
+    })
+  })
+
+  it("should not update a book record in database", () => {
+    return mBook.patch(_insert1.id, { current_page: 300 }).then((result) => {
+      assert.deepEqual(result, undefined)
+    })
+  })
+
+  it("should not delete a book record from database", () => {
+    return mBook.hardDelete(_insert1.id).then((result) => {
+      assert.deepEqual(result, 0)
+    })
+  })
+
+  it("should not insert a new book record into database", () => {
+    return mBook.post({ ...newBook }).then((result) => {
+      assert.deepEqual(result, undefined)
+    })
+  })
+
+  it("should not insert a new book record into database", () => {
+    return mBook.post({ ...newBook }).then((result) => {
+      assert.deepEqual(result, undefined)
+    })
+  })
+
+  it("should delete a book record from database", () => {
+    return mBook.hardDelete(_insert1.id).then((result) => {
+      assert.deepEqual(result, 1)
+    })
+  })
+
+  it("should soft delete a book record from database", () => {
+    return mBook.delete(_insert1.id).then((result) => {
+      assert.deepEqual(result, {
+        ..._insert1,
+        inactiveAt: result.inactiveAt,
+      })
+    })
+  })
 })
