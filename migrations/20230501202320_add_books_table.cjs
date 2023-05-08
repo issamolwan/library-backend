@@ -13,8 +13,8 @@ exports.up = function (knex) {
     t.integer("total_pages")
     t.string("author")
     t.json("cover_url")
-    t.string("review")
-    t.boolean("finished")
+    t.text("review")
+    t.boolean("finished").notNull().default(false)
   })
 }
 

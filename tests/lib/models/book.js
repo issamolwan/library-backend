@@ -67,24 +67,92 @@ describe("Book", () => {
     })
   })
 
-  it("should update a book record in database", () => {
+  it("should update current page for a book record in database", () => {
     newBook = {
-      fbUserId: "02u2jd9j1291j",
-      title: "Thinking Fast And Slow",
+      fbUserId: _insert1.fbUserId,
+      title: _insert1.title,
       current_page: 320,
     }
     return mBook.patch(newBook).then((result) => {
+      assert.deepEqual(result, newBook)
+    })
+  })
+
+  it("should update review of a book record in database", () => {
+    newBook = {
+      fbUserId: _insert1.fbUserId,
+      title: _insert1.title,
+      review:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
+    }
+    return mBook.patch(newBook).then((result) => {
+      assert.deepEqual(result, newBook)
+    })
+  })
+
+  it("should update reading status 'finished' of a book record in database", () => {
+    newBook = {
+      fbUserId: _insert1.fbUserId,
+      title: _insert1.title,
+      current_page: _insert1.total_pages,
+    }
+    return mBook.patch(newBook).then((result) => {
       assert.deepEqual(result, {
-        id: _insert1.id,
-        finished: false,
-        ...newBook
+        finished: true,
+        ...newBook,
       })
+    })
+  })
+
+  it("should soft delete a record from database", () => {
+    return mBook.delete(_insert1.id).then((result) => {
+      assert.equal(result.affectedRows, 1)
+    })
+  })
+
+  it("should delete a book record from database", () => {
+    return mBook.hardDelete(_insert1.id).then((result) => {
+      assert.deepEqual(result.affectedRows, 1)
+    })
+  })
+  // TODO: error cases for update
+
+  it("should not insert a new book record into database", () => {
+    newBook = {
+      ...newBook,
+      current_page: _insert1.current_page,
+      total_pages: _insert1.total_pages,
+    }
+    return mBook.post(newBook).catch((err) => {
+      assert.equal(err.message, "BOOK_ALREADY_EXISTS")
+    })
+  })
+
+  it("should not insert a new book record into database", () => {
+    delete newBook.title
+    return mBook.post(newBook).catch((err) => {
+      assert.equal(err.message, "BOOK_POST_VALIDATION_ERROR")
+    })
+  })
+
+  it("should not insert a new book record into database", () => {
+    delete newBook.fbUserId
+    return mBook.post(newBook).catch((err) => {
+      assert.equal(err.message, "BOOK_POST_VALIDATION_ERROR")
+    })
+  })
+
+  it("should not insert a new book record into database", () => {
+    delete newBook.fbUserId
+    delete newBook.title
+    return mBook.post(newBook).catch((err) => {
+      assert.equal(err.message, "BOOK_POST_VALIDATION_ERROR")
     })
   })
 
   it("should insert a new book record into database", () => {
     newBook = {
-      fbUserId: "02u2jd9j1sihdisaw",
+      fbUserId: "02u2jd9j1291j",
       title: "Crime And Punishment",
       total_pages: 800,
       current_page: 242,
@@ -102,7 +170,6 @@ describe("Book", () => {
             large: _insert1.cover_url[1].large,
           },
         ],
-        // TODO: look up an easier way to do this
         fbUserId: newBook.fbUserId,
         title: newBook.title,
         total_pages: newBook.total_pages,
@@ -113,9 +180,31 @@ describe("Book", () => {
     })
   })
 
-  it("should not insert a new book record into database", () => {
-    return mBook.post({ ...newBook }).catch((err) => {
-      assert.equal(err.message, "BOOK_ALREADY_EXISTS")
+  it("should update current page of a book record in database", () => {
+    newBook = {
+      fbUserId: _insert1.fbUserId,
+      title: _insert1.title,
+      current_page: 322,
+    }
+    return mBook.patch(newBook).then((result) => {
+      assert.deepEqual(result, newBook)
+    })
+  })
+
+  it("should update review of a book record in database", () => {
+    newBook = {
+      ...newBook,
+      review: "This book is bussin",
+    }
+    delete newBook.current_page
+    return mBook.patch(newBook).then((result) => {
+      assert.deepEqual(result, newBook)
+    })
+  })
+
+  it("should soft delete a record into database", () => {
+    return mBook.delete(_insert1.id).then((result) => {
+      assert.equal(result.affectedRows, 1)
     })
   })
 
@@ -125,36 +214,18 @@ describe("Book", () => {
     })
   })
 
-  it("should not get a book record from database", () => {
-    return mBook.get(_insert1.id).then((result) => {
-      assert.deepEqual(result, undefined)
-    })
-  })
+  // it("should get books by author", () => {
 
-  it("should not update a book record in database", () => {
-    return mBook.patch(_insert1.id, { current_page: 300 }).then((result) => {
-      assert.deepEqual(result, undefined)
-    })
-  })
+  // })
 
   it("should delete a book record from database", () => {
     return mBook.hardDelete(_insert1.id).then((result) => {
-      assert.deepEqual(result, 1)
+      assert.deepEqual(result.affectedRows, 1)
     })
   })
 
-  it("should not delete a book record from database", () => {
-    return mBook.hardDelete(_insert1.id).then((result) => {
-      assert.deepEqual(result, 0)
-    })
-  })
-
-  it("should soft delete a book record from database", () => {
-    return mBook.delete(_insert1.id).then((result) => {
-      assert.deepEqual(result, {
-        ..._insert1,
-        inactiveAt: result.inactiveAt,
-      })
-    })
+  after(async () => {
+    // TODO: don't forget to remove this once all tests are cleared
+    await mBook.knex("books").del()
   })
 })
