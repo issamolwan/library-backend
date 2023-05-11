@@ -45,6 +45,7 @@ describe("Book", () => {
 
   it("should insert a new book record into database", () => {
     return mBook.post(newBook).then((result) => {
+      delete result.createAt
       _insert1 = result
 
       assert.isDefined(_insert1.id)
@@ -64,6 +65,21 @@ describe("Book", () => {
         finished: false,
         id: _insert1.id,
       })
+    })
+  })
+
+  it("should get a book record from database by its id", () => {
+    return mBook.getById(_insert1.id).then((result) => {
+      delete result.createAt
+      let expectedResult = {
+        ..._insert1,
+        finished: 0,
+        inactiveAt: null,
+        review: null,
+        updatedAt: null,
+        author: "Daniel Kahneman",
+      }
+      assert.deepEqual(result, expectedResult)
     })
   })
 
@@ -213,10 +229,6 @@ describe("Book", () => {
       assert.equal(result.length, 2)
     })
   })
-
-  // it("should get books by author", () => {
-
-  // })
 
   it("should delete a book record from database", () => {
     return mBook.hardDelete(_insert1.id).then((result) => {
