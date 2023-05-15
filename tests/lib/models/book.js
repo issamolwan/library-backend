@@ -131,7 +131,6 @@ describe("Book", () => {
       assert.deepEqual(result.affectedRows, 1)
     })
   })
-  // TODO: error cases for update
 
   it("should not insert a new book record into database", () => {
     newBook = {
