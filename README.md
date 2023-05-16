@@ -42,7 +42,7 @@ config = {
 export { config }
 ```
 
-3. Run the `docker-compose` build command. (**NOTE: node_modules are installed internally in the application's docker container. Any new installed packages are added to package.json, and re-running docker-compose build)**
+3. Run the `docker-compose` build command. (**NOTE: The node_modules directory is installed within the application's Docker container. Any new packages that are installed are added to the package.json file, and then the Docker-compose build command is run again)**
 ```bash
 #!/bin/bash
 docker-compose up --build
