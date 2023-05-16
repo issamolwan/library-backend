@@ -1,5 +1,5 @@
 # Introduction
-This application runs multiple services using Docker and Docker Compose, including a **Node.js application, MySQL, and PHPMyAdmin**. The Node.js application runs on port 4000, while MySQL runs on port 8989 and PHPMyAdmin on port 8080. These ports are mapped to your local machine, so you can access PHPMyAdmin's graphical interface by visiting localhost://8080.
+This application runs multiple services using Docker and Docker Compose; a **Node.js application, MySQL, and PHPMyAdmin**. The Node.js application runs on port 4000, while MySQL runs on port 8989 and PHPMyAdmin on port 8080. These ports are mapped to your local machine, so you can access PHPMyAdmin's graphical interface by visiting localhost://8080.
 
 *you can change the ports in the docker files **(if you'd like)***
 
