@@ -3,6 +3,15 @@ This application runs multiple services using Docker and Docker Compose, includi
 
 *you can change the ports in the docker files **(if you'd like)***
 
+## Project Structure 
+- migrations - migration files to create or change database structure
+- lib/app.js - starter file to create the server and main point of the application
+- lib/workflow/index.js - main application middleware
+- lib/workflow/schema.js - schema to validate incoming requests
+- lib/models - database models to directly access database tables
+- lib/utils - utilities for handling errors and accessibility options to application
+- tests - integration tests for models and API.
+
 ## Getting started
 
 The main Node.js module of this application is located in `/lib/app.js`. To ensure the correct configuration of Knex, the application also imports a config.js file that must be created beforehand.
@@ -33,7 +42,7 @@ config = {
 export { config }
 ```
 
-3. Run the `docker-compose` build command. (**NOTE: node_modules are installed internally in the application's docker container. Any new installed packages are added to package.json, and running docker-compose build again)**
+3. Run the `docker-compose` build command. (**NOTE: node_modules are installed internally in the application's docker container. Any new installed packages are added to package.json, and re-running docker-compose build)**
 ```bash
 #!/bin/bash
 docker-compose up --build
