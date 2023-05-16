@@ -1,5 +1,7 @@
 # Introduction
-This application runs multiple services using Docker and Docker Compose; a **Node.js application, MySQL, and PHPMyAdmin**. The Node.js application runs on port 4000, while MySQL runs on port 8989 and PHPMyAdmin on port 8080. These ports are mapped to your local machine, so you can access PHPMyAdmin's graphical interface by visiting localhost://8080.
+The application acts as a convenient virtual library where users can keep track of their ongoing book reading. It allows users to easily add the books they are currently reading, update their progress by noting the current page, and share their personal reviews. To make book management even more enjoyable, the application integrates with an external API to automatically fetch book covers based on the book titles provided. With these features, users can stay organized and engaged in their reading adventures
+
+The application runs multiple services using Docker and Docker Compose; a **Node.js application, MySQL, and PHPMyAdmin**. The Node.js application runs on port 4000, while MySQL runs on port 8989 and PHPMyAdmin on port 8080. These ports are mapped to your local machine, so you can access PHPMyAdmin's graphical interface by visiting localhost://8080.
 
 *you can change the ports in the docker files **(if you'd like)***
 
@@ -21,7 +23,7 @@ The main Node.js module of this application is located in `/lib/app.js`. To ensu
 MYSQL_HOST = library-mysql # has to be the same name as the mysql docker container
 MYSQL_USER = root
 MYSQL_PASSWORD = root
-mysql_database = library
+MYSQL_DATABASE = library
 MYSQL_PORT = 3306 # mysql's docker container port is 3306
 MYSQL_ROOT_PASSWORD = root
 ```
@@ -42,8 +44,19 @@ config = {
 export { config }
 ```
 
-3. Run the `docker-compose` build command. (**NOTE: The node_modules directory is installed within the application's Docker container. Any new packages that are installed are added to the package.json file, and then the Docker-compose build command is run again)**
+3. Run the `docker-compose` build command.  Or `docker compose` depending on your version of docker compose (**NOTE: The node_modules directory is installed within the application's Docker container. Any new packages that are installed are added to the package.json file, and then the Docker-compose build command is run again)**
 ```bash
 #!/bin/bash
 docker-compose up --build
+```
+# Running tests
+In order to run the tests in `tests` directory, you have to bash into the application's docker container. 
+```bash
+#!/bin/bash
+docker-compose docker exec -it bash
+```
+then
+```bash
+#!/bin/bash
+npm run test
 ```
