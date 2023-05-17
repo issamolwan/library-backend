@@ -50,10 +50,10 @@ export { config }
 docker-compose up --build
 ```
 # Running tests
-In order to run the tests in `tests` directory, you have to bash into the application's docker container. 
+In order to run the tests in `tests` directory, you have to bash into the node application's docker container. Example 
 ```bash
 #!/bin/bash
-docker-compose docker exec -it bash
+docker-compose docker exec -it library_backend bash
 ```
 then
 ```bash
