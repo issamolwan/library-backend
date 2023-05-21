@@ -10,3 +10,7 @@ services:
       - ./tests:/app/tests
     ports:
       - "4000:4000"
+
+  redis:
+    image: redis:latest
+    container_name: redis
