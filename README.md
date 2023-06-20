@@ -5,7 +5,7 @@ The application runs multiple services using Docker and Docker Compose; a **Node
 
 *you can change the ports in the docker files **(if you'd like)***
 
-## Notes
+## Note
 This application now requires Firebase integration using a service account. To access the application's full functionality, you need to possess the necessary credentials.
 
 ## Project Structure 
