@@ -111,7 +111,7 @@ describe("Book", () => {
   })
 
   it("should soft delete a record from database", () => {
-    return mBook.delete("Thinking Fast and Slow").then((result) => {
+    return mBook.delete(newBook).then((result) => {
       assert.equal(result.affectedRows, 1)
     })
   })
@@ -128,7 +128,7 @@ describe("Book", () => {
     })
   })
 
-    it("should not insert a new book record into database", () => {
+  it("should not insert a new book record into database", () => {
     delete newBook.title
     return mBook.post(newBook).catch((err) => {
       assert.equal(err.message, "BOOK_POST_VALIDATION_ERROR")
@@ -191,8 +191,8 @@ describe("Book", () => {
     })
   })
 
-  it("should soft delete a record into database", () => {
-    return mBook.delete(newBook.title).then((result) => {
+  it("should soft delete a record from database", () => {
+    return mBook.delete(newBook).then((result) => {
       assert.equal(result.affectedRows, 1)
     })
   })
@@ -209,8 +209,4 @@ describe("Book", () => {
     })
   })
 
-  after(async () => {
-    // TODO: don't forget to remove this once all tests are cleared
-    await mBook.knex("books").del()
-  })
 })
