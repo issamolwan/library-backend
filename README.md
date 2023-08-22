@@ -7,6 +7,7 @@ The application runs multiple services using Docker and Docker Compose; a **Node
 
 ## Note
 This application now requires Firebase integration using a service account. To access the application's full functionality, you need to possess the necessary credentials.
+The "Getting Started" process involves configuring Firebase by creating a directory named "keys," within which the service account JSON file is stored under the name "service_account_key.json."
 
 ## Project Structure 
 - migrations - migration files to create or change database structure
@@ -41,6 +42,9 @@ config = {
     user: "root" ,
     password: "root" ,
     port: 3306
+  },
+   firebase: {
+    serviceAccount: (fs.existsSync(fbConfigPath) ? fbConfigPath : JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT))
   }
 }
 
