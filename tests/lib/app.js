@@ -22,7 +22,7 @@ const mockToken = {
   exp: 1677655196,
   phone_number: "+972597192140",
   firebase: { identities: { phone: ["+972597192140"] }, sign_in_provider: "phone" },
-  uid: "3b7F0KuYznx9atcTg7qSdJqWgHg1",
+  uid: "3b7F0KuYznx9atcTg7qSdJqWgHg1"
 }
 
 describe("API Test", () => {
