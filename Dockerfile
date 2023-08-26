@@ -8,7 +8,7 @@ ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 
 # Copy package.json and yarn.lock to /app
-COPY package.json yarn.lock /app/
+COPY package.json /app/
 
 # Install nodemon for hot reload
 RUN npm install -g nodemon
