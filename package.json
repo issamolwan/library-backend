@@ -25,7 +25,8 @@
     "moment-timezone": "0.5.43",
     "moment": "2.29.4",
     "redis": "4.6.7",
-    "firebase-admin":"11.5.0"
+    "firebase-admin":"11.5.0",
+    "cors":"2.8.5"
   },
   "scripts": {
     "start": "nodemon app.js",
