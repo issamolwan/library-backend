@@ -7,9 +7,8 @@ const config = {
   mysql: {
     host:  process.env.MYSQL_HOST || "library-mysql",
     database:  process.env.MYSQL_DATABASE || "library",
-    user: "root" ,
-    password: "root" ,
-    port: 3306
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD, 
   },
   firebase: {
     serviceAccount: (fs.existsSync(fbConfigPath) ? fbConfigPath : JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT))
