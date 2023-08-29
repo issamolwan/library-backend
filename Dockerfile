@@ -7,16 +7,18 @@ WORKDIR /app
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 
-# Install packages using Yarn
-COPY . /app
-
-ADD package.json /tmp/
-RUN cd /tmp && yarn
-RUN ln -s /tmp/node_modules /app
+# Copy package.json and yarn.lock to /app
+COPY package.json /app/
 
 # Install nodemon for hot reload
 RUN npm install -g nodemon
 
+# Install packages using Yarn
+RUN yarn
+
+# Copy the rest of the application
+COPY . /app
+
 EXPOSE 4000
 
-CMD nodemon lib/app.js
+CMD ["nodemon", "lib/app.js"]
