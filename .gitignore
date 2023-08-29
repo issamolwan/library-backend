@@ -1,6 +1,8 @@
 # folders
 data
 etc
+keys
 
 # environmental
 .env
+config.js
