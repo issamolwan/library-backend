@@ -67,3 +67,117 @@ then
 #!/bin/bash
 npm run test
 ```
+
+Sure, I'd be happy to help you document this API!
+
+## API Documentation
+
+### 1. Health Check
+Check the health of the API.
+
+- **Endpoint:** `/v1/health`
+- **Method:** GET
+- **Response:**
+  - **Status Code:** 200 OK
+  - **Content:** "OK"
+
+### 2. Get User's Books
+Retrieve a list of books owned by a specific user.
+
+- **Endpoint:** `/v1/users/:id/books`
+- **Method:** GET
+- **Authentication:** Firebase authentication required
+- **URL Parameters:**
+  - `id` (string): User ID
+- **Response:**
+  - **Status Code:** 200 OK
+  - **Content:**
+    ```json
+    {
+      "results": [
+        // Array of book objects
+      ],
+      "status": 200
+    }
+    ```
+
+### 3. Add Book to User's Collection
+Add a new book to a specific user's collection.
+
+- **Endpoint:** `/v1/users/:id/books`
+- **Method:** POST
+- **Authentication:** Firebase authentication required
+- **URL Parameters:**
+  - `id` (string): User ID
+- **Request Body:**
+  ```json
+  {
+    // Book details
+  }
+  ```
+- **Response:**
+  - **Status Code:** 200 OK
+  - **Content:**
+    ```json
+    {
+      "results": {
+        // Added book object
+      },
+      "status": 200
+    }
+    ```
+
+### 4. Delete Book from User's Collection
+Delete a book from a specific user's collection.
+
+- **Endpoint:** `/v1/users/:id/books`
+- **Method:** DELETE
+- **Authentication:** Firebase authentication required
+- **URL Parameters:**
+  - `id` (string): User ID
+- **Request Body:**
+  ```json
+  {
+    "bookId": "xyz123" // ID of the book to delete
+  }
+  ```
+- **Response:**
+  - **Status Code:** 200 OK
+  - **Content:**
+    ```json
+    {
+      "results": {
+        // Deleted book object
+      },
+      "status": 200
+    }
+    ```
+
+### 5. Update Book in User's Collection
+Update details of a book in a specific user's collection.
+
+- **Endpoint:** `/v1/users/:id/books`
+- **Method:** PATCH
+- **Authentication:** Firebase authentication required
+- **URL Parameters:**
+  - `id` (string): User ID
+- **Request Body:**
+  ```json
+  {
+    "bookId": "xyz123", // ID of the book to update
+    // Updated book details
+  }
+  ```
+- **Response:**
+  - **Status Code:** 200 OK
+  - **Content:**
+    ```json
+    {
+      "results": {
+        // Updated book object
+      },
+      "status": 200
+    }
+    ```
+
+Please note that the authentication middleware provided by `this.authMiddleware.authenticate()` suggests that Firebase authentication is being used. You might need to make sure that Firebase authentication is properly integrated into your application for these endpoints to work as intended.
