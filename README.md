@@ -68,8 +68,6 @@ then
 npm run test
 ```
 
-Sure, I'd be happy to help you document this API!
-
 ## API Documentation
 
 ### 1. Health Check
